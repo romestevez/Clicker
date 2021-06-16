@@ -14,6 +14,11 @@ public class PlayerController {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @GetMapping(value = "/players")
+    public ResponseEntity<Object> listPlayer() {
+        return new ResponseEntity<>(playerRepository.findAll(), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/player/{id}")
     public ResponseEntity<Object> playerDetail(@PathVariable("id") Long id) {
         return new ResponseEntity<>(playerRepository.findById(id).orElseThrow(EntityNotFoundException::new),

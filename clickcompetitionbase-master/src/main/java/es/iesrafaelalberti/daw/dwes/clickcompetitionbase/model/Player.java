@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Data
@@ -15,6 +18,12 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "players_equipo",
+            joinColumns = @JoinColumn(name = "player_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipo_id"))
+    Set<Equipo> equipos = new HashSet<>();
 
     @JsonBackReference
     @ManyToOne
@@ -31,6 +40,15 @@ public class Player {
         this.name = name;
         this.clicks = clicks;
         this.localidad = localidad;
+
+    }
+
+    public Player(String name, int clicks, Localidad localidad, Set<Equipo> equipos) {
+        this.name = name;
+        this.clicks = clicks;
+        this.localidad = localidad;
+        this.equipos = equipos;
+
 
     }
 

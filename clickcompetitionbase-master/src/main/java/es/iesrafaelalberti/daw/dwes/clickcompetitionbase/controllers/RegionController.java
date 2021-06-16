@@ -15,6 +15,11 @@ public class RegionController {
     @Autowired
     RegionRepository regionRepository;
 
+    @GetMapping(value = "/regiones")
+    public ResponseEntity<Object> listRegion() {
+        return new ResponseEntity<>(regionRepository.findAll(), HttpStatus.OK);
+    }
+
     @GetMapping("/region/{id}")
     public ResponseEntity<Object> regionDetail(@PathVariable("id") Long id) {
         return new ResponseEntity<>(regionRepository.findById(id).orElseThrow(EntityNotFoundException::new),

@@ -16,6 +16,11 @@ public class PaisCrontroller {
     @Autowired
     PaisRepository paisRepository;
 
+    @GetMapping(value = "/paises")
+    public ResponseEntity<Object> listPais() {
+        return new ResponseEntity<>(paisRepository.findAll(), HttpStatus.OK);
+    }
+
     @GetMapping("/pais/{id}")
     public ResponseEntity<Object> paisDetail(@PathVariable("id") Long id) {
         return new ResponseEntity<>(paisRepository.findById(id).orElseThrow(EntityNotFoundException::new),

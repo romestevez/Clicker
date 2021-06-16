@@ -15,6 +15,12 @@ public class LocalidadController {
     @Autowired
     LocalidadRepository localidadRepository;
 
+
+    @GetMapping(value = "/localidades")
+    public ResponseEntity<Object> listLocalidad() {
+        return new ResponseEntity<>(localidadRepository.findAll(), HttpStatus.OK);
+    }
+
     @GetMapping("/localidad/{id}")
         public ResponseEntity<Object> localidadDetail(@PathVariable("id") Long id) {
             return new ResponseEntity<>(localidadRepository.findById(id).orElseThrow(EntityNotFoundException::new),
